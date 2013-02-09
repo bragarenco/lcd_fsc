@@ -6,7 +6,6 @@
  */
 #include <avr/io.h>
 #include "display_drv.h"
-#include "display_timer.h"
 
 
 int main(void){

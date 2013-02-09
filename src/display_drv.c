@@ -154,9 +154,7 @@ char ValTo7Seg(char val){
 //	}
 }
 
-extern volatile unsigned long current_time_ms;
-//extern volatile char ms_timer_count;
-
+extern volatile int ms_timer_count;
 extern volatile char sec_l;
 extern volatile char sec_h;
 extern volatile char min_l;
@@ -165,8 +163,7 @@ extern volatile char min_h;
 
 void UpdateTimer(void) {
 
-//if (ms_timer_count > 500) {
-	if ((current_time_ms / 500) & 0x01) {
+	if (ms_timer_count > 500) {
 		display_tab[SEPARATOR_POS] |= 0x80;
 	} else {
 		display_tab[SEPARATOR_POS] &= ~0x80;
@@ -177,7 +174,7 @@ void UpdateTimer(void) {
 	Set7SegValue(ValTo7Seg(min_l), SEG_POS_2);
 	Set7SegValue(ValTo7Seg(min_h), SEG_POS_3);
 
-	if ((current_time_ms / 500) & 0x01) {
+	if (ms_timer_count > 500) {
 		display_tab[LEFT_UNHAPPY_POS] |= 0x80;
 		display_tab[LEFT_HAPPY_POS] &= ~0x80;
 		display_tab[RIGHT_UNHAPPY_POS] |= 0x80;
