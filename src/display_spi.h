@@ -32,10 +32,14 @@
 #define _DRIVE_LATCH_HIGH()     			PORTB |= 1 << _LATCH_GPIO_BIT_
 #define _DRIVE_LATCH_LOW()      			PORTB &= ~ 1 << _LATCH_GPIO_BIT_
 
+#define spi_OutEnable() 			\
+	_DRIVE_LATCH_HIGH();			\
+		asm("nop");					\
+	_DRIVE_LATCH_LOW();				\
+
+
 
 void spi_Transfer(unsigned char data);
 void spi_Init();
-void spi_OutEnable(char pulseWidth);
-void display_Delay(char pulseWidth);
 
 #endif /* DISPLAY_SPI_H_ */

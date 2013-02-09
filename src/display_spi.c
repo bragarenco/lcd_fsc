@@ -45,14 +45,4 @@ void spi_Transfer(unsigned char data)
 
 }
 
-void spi_OutEnable(char pulseWidth){
-	_DRIVE_LATCH_HIGH();
-	for(int i = 0; i < pulseWidth; i++)
-		asm("nop");
-	_DRIVE_LATCH_LOW();
 
-}
-void display_Delay(char pulseWidth){
-	for(int i = 0; i < pulseWidth; i++)
-		asm("nop");
-}

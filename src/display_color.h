@@ -37,8 +37,18 @@
 #define _DRIVE_RED_LOW()      			PORTB &= ~ 1 << _RED_GPIO_BIT_
 
 
-void init_ColorPin(void);
-void led_ColorOff(void );
-void led_ColorSet(char colorMASK );
+#define led_ColorOff() RGB_PORT &=~COLOR_BIT_MASK
+#define led_ColorSet(colorMASK) RGB_PORT |= colorMASK
+
+#define  init_ColorPin() \
+	_CONFIG_RED_PIN_AS_OUTPUT();\
+	_CONFIG_GREEN_PIN_AS_OUTPUT();\
+	_CONFIG_BLUE_PIN_AS_OUTPUT();
+
+
+
+//void init_ColorPin(void);
+//void led_ColorOff(void );
+//void led_ColorSet(char colorMASK );
 
 #endif /* DISPLAY_COLOR_H_ */

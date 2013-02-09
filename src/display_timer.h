@@ -37,6 +37,8 @@
 #define OVF0_OFF() TIMSK &= ~(1<<TOIE0)
 
 void Init_DisplayTimer();
+void display_Delay(char pulseWidth);
+
 void DelayMs(unsigned int time_to_wait);
 void Init_TimeBase();
 

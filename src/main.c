@@ -20,9 +20,9 @@ int main(void){
 
 	sei();
 	while(1){
-		DelayMs(500);
+		DelayMs(150);
 		DriveDemo();
+		UpdateTimer();
 		//PORTD++;
-
 	}
 }
