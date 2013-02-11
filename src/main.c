@@ -6,6 +6,8 @@
  */
 #include <avr/io.h>
 #include "display_drv.h"
+#include "display_serial.h"
+#include "display_demo.h"
 
 
 int main(void){
@@ -14,6 +16,7 @@ int main(void){
 	init_Display();
 	Init_DisplayTimer();
 	Init_TimeBase();
+	Init_UART(51);
 
 	DDRD |=   1<<PD6;
 
