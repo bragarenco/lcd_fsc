@@ -10,21 +10,23 @@
 
 char display_tab[DISPLAY_TAB_SIZE] = {
 		// 7 segment
-		7,7,7,7,7,7,7,1,				//0..7
-		1,1,1,1,1,1,3,2,			    //8..15
-		2,2,2,2,2,2,4,4,				//16..23
-		4,4,4,4,4,CV,5,6,				//24..31
+		0x77,0x77,0x77,0x77,0x77,0x77,0x77,0x11,				//0..7
+		0x11,0x11,0x11,0x11,0x11,0x11,0x33,0x22,			    //8..15
+		0x22,0x22,0x22,0x22,0x22,0x22,0x44,0x44,				//16..23
+		0x44,0x44,0x44,0x44,0x44, CV ,0x55,0x66,				//24..31
 		// bar
-		7,1,3,2,6,4,5,7,				//32..39
-		1,3,2,6,4,5,7,2,				//40..47
-		2,2,2,2,4,4,4,4,				//48..53
-		1,1,1,1,7,5,6,CV				//56..63
+		0x77,0x11,0x33,0x22,0x66,0x44,0x55,0x77,				//32..39
+		0x01,0x03,0x02,0x06,0x04,0x05,0x07,0x22,				//40..47
+		0x22,0x22,0x22,0x22,0x44,0x44,0x44,0x44,				//48..53
+		0x11,0x11,0x11,0x11,0x77,0x55,0x66, CV					//56..63
 };
 
 
 
 char trig_flag = 0 ;
+char color_set_flag = 0;
 char current_collor = COLOR_BLUE;
+
 char gpio_collor = 1<<_BLUE_GPIO_BIT_;
 char color_periods = 0;
 
@@ -44,15 +46,22 @@ void drive_Display(void){
 	register char byte_to_send = 0;
 	register char current_byte = 0;
 
+
+
+
 	do{
 		// extract byte
 		current_byte = display_tab[i];
 
 		byte_to_send<<=1;
-		if(~current_byte&0x80){		// check if disabled
-		if(current_byte & current_collor){
-			byte_to_send|=0x01;
-		}
+		if (~current_byte & 0x80) {		// check if disabled
+
+			if(color_set_flag)
+				current_byte>>=4;
+
+			if (current_byte & current_collor) {
+				byte_to_send |= 0x01;
+			}
 		}
 		if((i&7) == 0){
 			if(trig_flag)
@@ -64,6 +73,13 @@ void drive_Display(void){
 		}
 
 	}while(--i>=0);
+
+	if(color_set_flag){
+		color_set_flag = 0;
+	}else{
+		color_set_flag = 1;
+	}
+
 
 	led_ColorOff();
 	display_Delay(2);

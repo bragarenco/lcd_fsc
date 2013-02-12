@@ -16,7 +16,7 @@ int main(void){
 	init_Display();
 	Init_DisplayTimer();
 	Init_TimeBase();
-	Init_UART(51);
+	//Init_UART(51);
 
 	DDRD |=   1<<PD6;
 

@@ -37,6 +37,10 @@
 #define COLOR_RED   0x01 << 1
 #define COLOR_GREEN 0x01 << 2
 
+//#define COLOR_CYAN  		COLOR_GREEN	| COLOR_BLUE
+//#define COLOR_YELOW  		COLOR_GREEN	| COLOR_RED
+//#define COLOR_MAGENTA 	COLOR_RED	| COLOR_BLUE
+
 void init_Display(void);
 void drive_Display(void);
 
